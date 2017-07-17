@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery.clickSlider</title>
+    <link rel="stylesheet" href="jquery.clickSlider.css">
+    <script src="../jquery/jquery-1.9.1.js"></script>
+    <script src="jquery.clickSlider.js"></script>
+</head>
+<body>
+<p style="padding:20px 50px;">点击滑动</p>
+<div class="box">
+    <p>节点：[0,200,500,800,1000]</p>
+    <br/>
+    <br/>
+    <div id="slider1" class="slider"></div>
+    <br/>
+    <br/>
+    <button style="padding:5px 10px" id="get">取值</button>
+    <br/>
+</div>
+<div class="box">
+    <p>节点：[200, 500, 800, 1000,2000]</p>
+    <br/>
+    <br/>
+    <div id="slider2" class="slider"></div>
+    <br/>
+    <br/>
+    <button style="padding:5px 10px" id="get2">取值</button>
+    <br/>
+</div>
+<!---->
+<script>
+    $('#slider1').clickSlider({
+
+        node: [0, 200, 500, 800, 1000]
+
+    });
+
+    $('#get').click(function () {
+
+        alert('当前值为：' + $('#slider1').data('val'))
+
+    })
+
+    $('#slider2').clickSlider({
+
+        node: [200, 500, 800, 1000, 2000]
+
+    });
+
+    $('#slider2').clickSlider('moveSlider', 3)
+
+    $('#get2').click(function () {
+
+        alert('当前box2值为：' + $('#slider2').data('val'))
+
+    })
+
+</script>
+</body>
+</html>
