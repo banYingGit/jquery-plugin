@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery.countDown</title>
+    <link rel="stylesheet" href="jquery.countDown.css">
+    <script src="../jquery/jquery-1.9.1.js"></script>
+    <script src="jquery.countDown.js"></script>
+</head>
+<body>
+<p style="padding:20px 50px;">结束时间：2017/11/30 00:00:00</p>
+<div class="box">
+    <p>类型：DS</p>
+    <br/>
+    <p>时间格式：["天", "小时", "分钟", "秒"]</p>
+    <br/>
+
+    <div id="time1" class="countTime"></div>
+</div>
+<div class="box">
+    <p>类型：HS</p>
+    <br/>
+    <p>时间格式：[":"]</p>
+    <br/>
+    <div id="time2" class="countTime"></div>
+</div>
+<div class="box">
+    <p>类型：HMS</p>
+    <br/>
+    <p>时间格式：["小时", "分钟", "秒","毫秒"]</p>
+    <br/>
+    <div id="time3" class="countTime"></div>
+</div>
+<div class="box">
+    <p>类型：HMS</p>
+    <br/>
+    <p>时间格式：[":"]</p>
+    <br/>
+    <div id="time4" class="countTime"></div>
+</div>
+<script>
+    $('#time1').countDown({
+
+        endTime: '1511971200',
+
+        type: 'DS',
+
+        symbol: ["天", "小时", "分钟", "秒"]
+
+
+    });
+
+    $('#time2').countDown({
+
+        endTime: '1511971200',
+
+        type: 'HS',
+
+        symbol: [':']
+
+
+    });
+
+    $('#time3').countDown({
+
+        endTime: '1511971200',
+
+        type: 'HMS',
+
+        symbol: ["小时", "分钟", "秒", "毫秒"]
+
+
+    });
+
+    $('#time4').countDown({
+
+        endTime: '1511971200',
+
+        type: 'HMS',
+
+        symbol: [":"]
+
+
+    })
+
+</script>
+</body>
+</html>

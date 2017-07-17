@@ -7,9 +7,11 @@
 
         var _default = {
 
-            endTime: '1499923035',//秒
+            endTime: '',//秒
 
-            symbol: [':', ":"]
+            symbol: '',
+
+            type: '' // DS > D-H-M-S,  HS > H-M-S,   HMS > H-M-S-MS
 
         };
 
@@ -18,6 +20,8 @@
         this.options = $.extend({}, _default, options);
 
         this.timePro = '';
+
+        this.ms = 60;
 
         _rendering.call(this);
 
@@ -28,21 +32,29 @@
 
     function _rendering() {
 
-        var len = this.options.symbol.length;
+        var type = this.options.type,
 
-        for (var i = 0; i <= len; i++) {
+            len = (type == 'DS' || type == 'HMS') ? 4 : 3;
+
+        for (var i = 0; i <= len - 1; i++) {
 
             this.$element.append('<span>').append('<i>' + this.options.symbol[i] + '</i>')
 
         }
-        $('i:eq(' + len + ')', this.$element).remove()
 
+        if (this.options.symbol.length == 1) {
+            $('i:eq(' + (len - 1) + ')', this.$element).remove()
+        }
 
     }
 
     function _even() {
 
-        var $this = this;
+        var $this = this,
+
+            type = this.options.type,
+
+            time = (type == 'DS' || type == 'HS') ? 1000 : 1;
 
         _count.call(this, this.options.endTime);
 
@@ -51,12 +63,12 @@
             _count.call($this, $this.options.endTime)
 
 
-        }, 1000);
+        }, time);
 
 
     }
 
-    function _count(endTime) {
+    function _count(endTime, ms) {
 
 
         var end = new Date(endTime * 1000),
@@ -71,29 +83,86 @@
 
             minute = parseInt(time / 1000 / 60 % 60),
 
-            seconds = parseInt(time / 1000 % 60);
+            seconds = parseInt(time / 1000 % 60),
 
-        var $hour = day * 24 + hour;
+            dh = day * 24 + hour;
 
-        var len = this.options.symbol.length;
 
-        if ((len + 1) == 4) {
+        var $day = day.toString().length > 1 ? day : '0' + day,
 
-            $('span:eq(0)', this.$element).text(day.toString().length > 1 ? day : '0' + day);
+            $hour = hour.toString().length > 1 ? hour : '0' + hour,
 
-            $('span:eq(1)', this.$element).text(hour.toString().length > 1 ? hour : '0' + hour);
+            $minute = minute.toString().length > 1 ? minute : '0' + minute,
 
-            $('span:eq(2)', this.$element).text(minute.toString().length > 1 ? minute : '0' + minute);
+            $seconds = seconds.toString().length > 1 ? seconds : '0' + seconds,
 
-            $('span:eq(3)', this.$element).text(seconds.toString().length > 1 ? seconds : '0' + seconds)
+            $dh = dh.toString().length > 1 ? dh : '0' + dh;
+
+        var type = this.options.type;
+
+        if (type == 'DS') {
+
+            // 日 小时 分钟 秒
+
+            $('span:eq(0)', this.$element).text($day);
+
+            $('span:eq(1)', this.$element).text($hour);
+
+            $('span:eq(2)', this.$element).text($minute);
+
+            $('span:eq(3)', this.$element).text($seconds)
+
+        } else if (type == 'HMS') {
+
+            //小时 分钟 秒 毫秒
+
+            this.ms = this.ms - 1 < 0 ? 60 : this.ms - 1;
+
+            var $ms = this.ms.toString().length > 1 ? this.ms : '0' + this.ms;
+
+            $('span:eq(0)', this.$element).text($hour);
+
+            $('span:eq(1)', this.$element).text($minute);
+
+            $('span:eq(2)', this.$element).text($seconds);
+
+            $('span:eq(3)', this.$element).text($ms);
+
+        }
+        else if (type == 'HS') {
+
+            //小时 分钟 秒
+
+            $('span:eq(0)', this.$element).text($dh);
+
+            $('span:eq(1)', this.$element).text($minute);
+
+            $('span:eq(2)', this.$element).text($seconds);
+
+
+        }
+
+
+        var $symbol = this.options.symbol,
+
+            len = $symbol.length;
+
+
+        if (len == 1) {
+
+            $('i', this.$element).text(this.options.symbol[0]);
 
         } else {
 
-            $('span:eq(0)', this.$element).text($hour.toString().length > 1 ? $hour : '0' + $hour);
+            $('i:eq(0)', this.$element).text($symbol[0]);
 
-            $('span:eq(1)', this.$element).text(minute.toString().length > 1 ? minute : '0' + minute);
+            $('i:eq(1)', this.$element).text($symbol[1]);
 
-            $('span:eq(2)', this.$element).text(seconds.toString().length > 1 ? seconds : '0' + seconds)
+            $('i:eq(2)', this.$element).text($symbol[2]);
+
+            if (len == 3) return false;
+
+            $('i:eq(3)', this.$element).text($symbol[3]);
 
         }
 
@@ -108,19 +177,7 @@
 
     }
 
-    CountDown.prototype.start = function (endTime) {
 
-        var $this = this;
-
-        this.timePro = setInterval(function () {
-
-            _count.call($this, endTime)
-
-
-        }, 1000);
-
-
-    };
 
 
     function Plugin(option) {
