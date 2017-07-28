@@ -5,7 +5,7 @@
     <title>jquery.clickSlider</title>
     <link rel="stylesheet" href="jquery.clickSlider.css">
     <script src="../jquery/jquery-1.9.1.js"></script>
-    <script src="jquery.clickSlider.js"></script>
+    <script src="jquery.clickSlider.min.js"></script>
 </head>
 <body>
 <p style="padding:20px 50px;">点击滑动</p>
@@ -41,7 +41,7 @@
 
         alert('当前值为：' + $('#slider1').data('val'))
 
-    })
+    });
 
     $('#slider2').clickSlider({
 
@@ -49,7 +49,7 @@
 
     });
 
-    $('#slider2').clickSlider('moveSlider', 3)
+    $('#slider2').clickSlider('moveSlider', 3);
 
     $('#get2').click(function () {
 

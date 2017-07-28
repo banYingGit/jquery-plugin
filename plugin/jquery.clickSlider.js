@@ -1,6 +1,7 @@
 /**
  * Created by banYing on 2017/7/12 0012.
  */
+
 +function ($) {
 
     var ClickSlider = function (element, options) {

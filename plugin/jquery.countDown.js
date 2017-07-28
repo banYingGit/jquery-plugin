@@ -11,7 +11,7 @@
 
             symbol: '',
 
-            type: '' // DS > D-H-M-S,  HS > H-M-S,   HMS > H-M-S-MS
+            type: '' // DS > D-H-M-S,  HS > H-M-S,   MS > M-S-MS
 
         };
 
@@ -34,7 +34,7 @@
 
         var type = this.options.type,
 
-            len = (type == 'DS' || type == 'HMS') ? 4 : 3;
+            len = (type == 'DS') ? 4 : 3;
 
         for (var i = 0; i <= len - 1; i++) {
 
@@ -112,7 +112,7 @@
 
             $('span:eq(3)', this.$element).text($seconds)
 
-        } else if (type == 'HMS') {
+        } else if (type == 'MS') {
 
             //小时 分钟 秒 毫秒
 
@@ -120,13 +120,11 @@
 
             var $ms = this.ms.toString().length > 1 ? this.ms : '0' + this.ms;
 
-            $('span:eq(0)', this.$element).text($hour);
+            $('span:eq(0)', this.$element).text($minute);
 
-            $('span:eq(1)', this.$element).text($minute);
+            $('span:eq(1)', this.$element).text($seconds);
 
-            $('span:eq(2)', this.$element).text($seconds);
-
-            $('span:eq(3)', this.$element).text($ms);
+            $('span:eq(2)', this.$element).text($ms);
 
         }
         else if (type == 'HS') {
