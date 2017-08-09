@@ -8,9 +8,9 @@ var gulp = require('gulp'),
 
     rename = require('gulp-rename'),
 
-    fileSrc = 'plugin/jquery.clickSlider.js',
+    fileSrc = 'plugin/jquery.countDown.js',
 
-    fileName = 'jquery.clickSlider';
+    fileName = 'jquery.countDown';
 
 gulp.task('compress', function () {
 
